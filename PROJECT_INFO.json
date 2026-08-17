@@ -1,0 +1,7 @@
+{
+  "project": "Legal Case Manager",
+  "phase": "Phase 1",
+  "version": "1.0.0",
+  "build": "GitHub Actions -> assembleDebug",
+  "package": "com.legalcasemanager"
+}
