@@ -385,6 +385,29 @@ fun CaseDetailScreen(
             Modifier.padding(padding).padding(16.dp).fillMaxSize().verticalScroll(rememberScrollState()),
             verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
+            DetailSection("eCourts") {
+                Text(
+                    if (c.cnrNumber.isBlank())
+                        "Add a CNR to this case to use eCourts update."
+                    else
+                        "CNR: ${c.cnrNumber}"
+                )
+                Button(
+                    onClick = {
+                        val intent = Intent(context, EcourtsWebViewActivity::class.java).apply {
+                            putExtra(EcourtsWebViewActivity.EXTRA_CASE_ID, c.id)
+                            putExtra(EcourtsWebViewActivity.EXTRA_CNR, c.cnrNumber)
+                        }
+                        context.startActivity(intent)
+                    },
+                    enabled = c.cnrNumber.isNotBlank()
+                ) {
+                    Icon(Icons.Default.Public, null)
+                    Spacer(Modifier.width(8.dp))
+                    Text("Update from eCourts")
+                }
+            }
+
             DetailSection("Identifiers") {
                 DetailRow("Current case number", c.currentCaseNumber)
                 DetailRow("Old / previous numbers", c.oldCaseNumbers.joinToString("\n"))
